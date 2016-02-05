@@ -1,8 +1,8 @@
 Package.describe({
-  name: 'timbroddin:pushwoosh',
+  name: 'lpender:pushwoosh',
   summary: 'Send and receive push notifications via Pushwoosh',
   version: '1.0.0',
-  git: 'https://github.com/TimBroddin/meteor-pushwoosh.git'
+  git: 'https://github.com/lpender/meteor-pushwoosh.git'
 });
 
 Package.onUse(function(api) {
@@ -19,7 +19,8 @@ Package.onTest(function(api) {
 });
 
 Cordova.depends({
-  'com.pushwoosh.plugins.pushwoosh': '4.1.0'
+  'pushwoosh-cordova-plugin': '4.1.1',
+  'cordova-plugin-whitelist': '1.2.1'
 });
 
 Npm.depends({
