@@ -1,12 +1,16 @@
 Pushwoosh = {};
 
 Pushwoosh.initPushwoosh = function(appId) {
-  var pushNotification = window.plugins.pushNotification;
+  // var pushNotification = window.plugins.pushNotification;
+  var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
   //set push notification callback before we initialize the plugin
   document.addEventListener('push-notification', function(event) {
     //get the notification payload
     var notification = event.notification;
+
+    //display alert to the user for example
+    alert(notification.aps.alert);
 
     //clear the app badge
     pushNotification.setApplicationIconBadgeNumber(0);
