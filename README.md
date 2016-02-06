@@ -9,7 +9,7 @@ This package works for iOs and Android devices and includes
 
 ## Install
 
-> meteor add timbroddin:pushwoosh
+> meteor add lpender:pushwoosh
 
 ## Usage
 
