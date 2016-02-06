@@ -97,7 +97,7 @@ You can pass this method an array if you'd like to send more than one message.
 
 ## Notes
 
-Please be sure to use the sandbox key for development or you will receive erros.
+Please be sure to use the sandbox key for development.
 
 ## Todo
 
