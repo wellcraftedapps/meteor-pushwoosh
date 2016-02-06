@@ -19,7 +19,7 @@ This package works for iOs and Android devices and includes
 {
   "public" : {
     "pushwoosh" : {
-      "appId": "XXXXX-XXXXX"
+      "appId": "XXXXX-XXXXX",
       "google": {
         "project_number": "123456"
       }
