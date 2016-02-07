@@ -20,7 +20,6 @@ Package.onTest(function(api) {
 
 Cordova.depends({
   'pushwoosh-cordova-plugin': '4.1.1',
-  'cordova-plugin-whitelist': '1.2.1',
   'cordova-plugin-device': '1.1.1'
 });
 
