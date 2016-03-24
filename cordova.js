@@ -16,10 +16,10 @@
   }
 
   Pushwoosh._initAndroid = function() {
-    //initialize Pushwoosh. This will trigger all pending push notifications on start.
+    //Initialize Pushwoosh. This will trigger all pending push notifications on start.
     this.pushNotification.onDeviceReady({
-      projectid: Meteor.settings.public.pushwoosh.google.project_number,
-      pw_appid : Meteor.settings.public.pushwoosh.appId
+      projectid: Meteor.settings.pushwoosh.google.project_number,
+      pw_appid : Meteor.settings.pushwoosh.appId
     });
 
     //register for pushes
@@ -36,7 +36,7 @@
 
   Pushwoosh._initIOs = function() {
     this.pushNotification.onDeviceReady({
-      pw_appid: Meteor.settings.public.pushwoosh.appId
+      pw_appid: Meteor.settings.pushwoosh.appId
     });
 
     //register for pushes

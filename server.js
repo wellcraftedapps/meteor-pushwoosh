@@ -5,7 +5,6 @@ Pushwoosh.initPushwoosh = function(appId) {
 }
 
 Pushwoosh.createMessage = function(notifications) {
-
   if(notifications instanceof Array) {
   } else {
     notifications = [notifications];

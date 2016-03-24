@@ -15,19 +15,16 @@ This package works for iOs and Android devices and includes
 
 ### Add your Pushwoosh settings to settings file
 
+`settings.production.json`
+
 ```json
 {
-  "public" : {
-    "pushwoosh" : {
-      "appId": "XXXXX-XXXXX",
-      "google": {
-        "project_number": "123456"
-      }
-    }
-  },
   "pushwoosh": {
     "appId": "XXXXX-XXXXX",
-    "token": "sample_pushwoosh_token"
+    "token": "sample_pushwoosh_token",
+    "google": {
+      "project_number": "123456"
+    }
   }
 }
 ```
@@ -42,7 +39,7 @@ App.accessRule('*');
 
 ### Receiving events
 
-Because receive events use a
+Because 'receive' events use a
 [different API](http://docs.pushwoosh.com/docs/cordova-phonegap) for different
 devices, they need to be dealt with differently.
 
