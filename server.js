@@ -26,7 +26,7 @@ Pushwoosh.createMessage = function(notifications) {
     var users = Meteor.users.find(notification.query).fetch();
 
     users.forEach(function(user) {
-      if (typeof user.profile.pushwoosh_device_tokens == 'object') {
+      if (typeof user.services.pushwoosh.deviceTokens == 'object') {
         Array.prototype.push.apply(
           devices,
           user.services.pushwoosh.deviceTokens
