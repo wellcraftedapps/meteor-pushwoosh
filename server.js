@@ -29,7 +29,7 @@ Pushwoosh.createMessage = function(notifications) {
       if (typeof user.profile.pushwoosh_device_tokens == 'object') {
         Array.prototype.push.apply(
           devices,
-          user.profile.pushwoosh_device_tokens
+          user.services.pushwoosh.deviceTokens
         );
       }
     });

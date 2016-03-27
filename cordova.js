@@ -52,7 +52,7 @@
 
     if (userId = Meteor.userId()) {
       Meteor.users.update({ _id: userId }, {
-        $addToSet: { 'profile.pushwoosh_device_tokens': token }
+        $addToSet: { 'services.pushwoosh.deviceTokens': token }
       });
     }
 
