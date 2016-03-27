@@ -32,7 +32,7 @@ This package works for iOs and Android devices and includes
 }
 ```
 
-You can request the token in the Pushwoosh admin panel.
+You can request the "token" in the Pushwoosh admin panel.
 
 ### Add this to your `mobile-config.js` file
 
@@ -40,60 +40,83 @@ You can request the token in the Pushwoosh admin panel.
 App.accessRule('*');
 ```
 
-### Receiving events
+You may also need to add `cordova-whitelist`
 
-Because receive events use a
-[different API](http://docs.pushwoosh.com/docs/cordova-phonegap) for different
-devices, they need to be dealt with differently.
+### Send a push notification:
 
-The pushwoosh package allows you to deal with events yourself by triggering
-different events for each device.
+    if (Meteor.isServer) {
 
-Here are some sample ways of handling push notifications in your app.
-
-/client/push.js
-
-    Meteor.startup(function(){
-      Pushwoosh.initPushwoosh();
-
-      document.addEventListener('push-notification', function(event){
-        if (device.platform === "iOS") {
-          //get the notification payload
-          var notification = event.notification;
-
-          //display alert to the user for example
-          alert(notification.aps.alert);
-
-          //clear the app badge
-          pushNotification.setApplicationIconBadgeNumber(0);
-        } else if (device.platform === "Android") {
-          var title = event.notification.title;
-          var userData = event.notification.userdata;
-
-          if(typeof(userData) != "undefined") {
-            console.warn('user data: ' + JSON.stringify(userData));
-          }
-
-          alert(title);
-        }
+      Pushwoosh.createMessage({
+        "query": { _id: Meteor.userId() },
+        "send_date": "now",
+        "ignore_user_timezone": true,
+        "content": "Your message"
       });
+
+    }
+
+You can pass this method an array of objects, if you'd like to send more than
+one message.
+
+[createMessage API](https://www.pushwoosh.com/programming-push-notification/pushwoosh-push-notification-remote-api/).
+
+### Receive a push notification
+
+In order to message specific users via their devices, you have to associate
+`pushwoosh_device_token`s with each of your users.
+
+This value is stored in a `Session` variable if users are not logged in.
+
+To associate users with their device tokens upon login:
+
+    Accounts.onLogin(function(succ) {
+      var token;
+      if (Meteor.isClient) {
+        if (token = Session.get('pushwoosh_device_token')) {
+          Meteor.users.update({ _id: succ.user._id },
+            {
+              $addToSet: {
+                'profile.pushwoosh_device_token': token
+              }
+            }
+          );
+        }
+      }
     });
 
-## Server
+## Handling notifications in-app
 
-To send a push notification call:
+Push notifications do not usually appear while the app is in-use.
 
-    Pushwoosh.createMessage({
-      "send_date": "now",
-      "ignore_user_timezone": true,
-      "content": "Your message"
-    });
+However, there are JavaScript events that you can listen for, to handle
+this scenario:
 
-When called client-side this method does nothing.
+    if (Meteor.isClient) {
+      Meteor.startup(function(){
+        Pushwoosh.initPushwoosh();
 
-There are a lot of extra parameters available. You can check them [here](https://www.pushwoosh.com/programming-push-notification/pushwoosh-push-notification-remote-api/).
+        document.addEventListener('push-notification', function(event){
+          if (device.platform === "iOS") {
+            //get the notification payload
+            var notification = event.notification;
 
-You can pass this method an array if you'd like to send more than one message.
+            //display alert to the user for example
+            alert(notification.aps.alert);
+          } else if (device.platform === "Android") {
+            var title = event.notification.title;
+            var userData = event.notification.userdata;
+
+            if(typeof(userData) != "undefined") {
+              console.warn('user data: ' + JSON.stringify(userData));
+            }
+
+            alert(title);
+          }
+        });
+      });
+    }
+
+[Cordova Pushwoosh API](http://docs.pushwoosh.com/docs/cordova-phonegap).
 
 ## Notes
 
@@ -101,4 +124,4 @@ Please be sure to use the sandbox key for development.
 
 ## Todo
 
-Implement other calls.
+Testing.

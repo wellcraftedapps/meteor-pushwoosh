@@ -15,8 +15,10 @@
     this.pushNotification.setApplicationIconBadgeNumber(0);
   }
 
+  // This will trigger all pending push notifications on start.
   Pushwoosh._initAndroid = function() {
-    //initialize Pushwoosh. This will trigger all pending push notifications on start.
+    var _this = this;
+
     this.pushNotification.onDeviceReady({
       projectid: Meteor.settings.public.pushwoosh.google.project_number,
       pw_appid : Meteor.settings.public.pushwoosh.appId
@@ -24,33 +26,42 @@
 
     //register for pushes
     this.pushNotification.registerDevice(
-      function(status) {
-        var pushToken = status;
-        console.warn('push token: ' + pushToken);
-      },
-      function(status) {
-        console.warn(JSON.stringify(['failed to register ', status]));
-      }
+      function(token) { _this._register(token) },
+      _this._registerFail
     );
   }
 
+  // This will trigger all pending push notifications on start.
   Pushwoosh._initIOs = function() {
+    var _this = this;
+
     this.pushNotification.onDeviceReady({
       pw_appid: Meteor.settings.public.pushwoosh.appId
     });
 
     //register for pushes
     this.pushNotification.registerDevice(
-      function(status) {
-        var deviceToken = status['deviceToken'];
-        console.warn('registerDevice: ' + deviceToken);
-      },
-      function(status) {
-        console.warn('failed to register : ' + JSON.stringify(status));
-        alert(JSON.stringify(['failed to register ', status]));
-      }
+      function(status) { _this._register(status['deviceToken'])},
+      _this._registerFail
     );
   }
+
+  Pushwoosh._register = function(token) {
+    var userId;
+    console.warn('push token: ' + token);
+
+    if (userId = Meteor.userId()) {
+      Meteor.users.update({ _id: userId }, {
+        $addToSet: { 'profile.pushwoosh_device_tokens': token }
+      });
+    }
+
+    Session.set('pushwoosh_device_token', token);
+  };
+
+  Pushwoosh._registerFail = function(status) {
+    console.warn('failed to register : ' + JSON.stringify(status));
+  };
 
   Pushwoosh.createMessage = function(notification) {
     throw new Meteor.Error('302', 'Only supported on server');
