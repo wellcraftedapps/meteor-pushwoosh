@@ -2,10 +2,12 @@
 
 Pushwoosh is a service that makes it easy to send push notifications to your (mobile) app.
 
-This package allows you to send (server) and receive (app) push notifications.
+This package:
 
-This package works for iOs and Android devices and includes
-`cordova-plugin-device` for device detection.
+- Allows you to send (server) and receive (app) push notifications.
+- Allows querying by user when creating a notification.
+- Works for iOs and Android devices and includes `cordova-plugin-device` for
+  device detection.
 
 ## Install
 
