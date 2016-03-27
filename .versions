@@ -1,6 +1,6 @@
 http@1.1.1
-local-test:lpender:pushwoosh@2.1.0
-lpender:pushwoosh@2.1.0
+local-test:lpender:pushwoosh@2.1.2
+lpender:pushwoosh@2.1.2
 meteor@1.1.10
 underscore@1.0.4
 url@1.0.5

@@ -78,11 +78,19 @@ To associate users with their device tokens upon login:
           Meteor.users.update({ _id: succ.user._id },
             {
               $addToSet: {
-                'profile.pushwoosh_device_token': token
+                'services.pushwoosh.deviceTokens': token
               }
             }
           );
         }
+      }
+    });
+
+    Meteor.users.allow({
+      update: function(userId, doc) {
+        return (
+          userId === doc._id
+        )
       }
     });
 
