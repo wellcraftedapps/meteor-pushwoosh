@@ -48,9 +48,10 @@
 
   Pushwoosh._register = function(token) {
     var userId;
-    console.warn('push token: ' + token);
+    console.log('push token: ' + token);
 
     if (userId = Meteor.userId()) {
+      console.log("adding to userId: " + userId);
       Meteor.users.update({ _id: userId }, {
         $addToSet: { 'services.pushwoosh.deviceTokens': token }
       });
@@ -60,7 +61,7 @@
   };
 
   Pushwoosh._registerFail = function(status) {
-    console.warn('failed to register : ' + JSON.stringify(status));
+    console.error('failed to register : ' + JSON.stringify(status));
   };
 
   Pushwoosh.createMessage = function(notification) {

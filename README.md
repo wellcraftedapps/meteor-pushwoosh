@@ -42,7 +42,15 @@ You can request the "token" in the Pushwoosh admin panel.
 App.accessRule('*');
 ```
 
-You may also need to add `cordova-whitelist`
+You may also need to add the `cordova-whitelist` plugin.
+
+### initPushwoosh
+
+In a file that is run in mobile/cordova contexts, run the following code:
+
+    Meteor.startup(function(){
+      Pushwoosh.initPushwoosh();
+    });
 
 ### Send a push notification:
 
@@ -103,8 +111,6 @@ this scenario:
 
     if (Meteor.isClient) {
       Meteor.startup(function(){
-        Pushwoosh.initPushwoosh();
-
         document.addEventListener('push-notification', function(event){
           if (device.platform === "iOS") {
             //get the notification payload

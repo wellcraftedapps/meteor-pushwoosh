@@ -26,18 +26,18 @@ Pushwoosh.createMessage = function(notifications) {
     var devices = [];
 
     // Find the users that match the included query
-    var users = Meteor.users.find(notification.query).fetch();
+    var users = Meteor.users.find(notification.query).fetch().filter(function(user) {
+      return user.services.pushwoosh && typeof user.services.pushwoosh.deviceTokens == 'object'
+    });
 
     console.log("lpender:pushwoosh : pushing to users");
     console.log(users);
 
     users.forEach(function(user) {
-      if (user.services.pushwoosh && typeof user.services.pushwoosh.deviceTokens == 'object') {
-        Array.prototype.push.apply(
-          devices,
-          user.services.pushwoosh.deviceTokens
-        );
-      }
+      Array.prototype.push.apply(
+        devices,
+        user.services.pushwoosh.deviceTokens
+      );
     });
 
     console.log("lpender:pushwoosh : pushing to devices")
@@ -63,9 +63,11 @@ Pushwoosh.createMessage = function(notifications) {
     json: true,
     method: 'post'
   }, function(error, response) {
-    if (error)
-      console.error("lpender:pushwoosh: " + error)
-    else
-      console.log("lpender:pushwoosh: " + response)
+    if (error) {
+      console.log("lpender:pushwoosh:");
+      console.error(error);
+    } else {
+      console.log("lpender:pushwoosh: request completed successfully");
+    }
   });
 };
