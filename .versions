@@ -3,8 +3,8 @@ babel-runtime@0.1.8
 ecmascript@0.4.3
 ecmascript-runtime@0.2.10
 http@1.1.5
-local-test:lpender:pushwoosh@2.1.4
-lpender:pushwoosh@2.1.4
+local-test:lpender:pushwoosh@2.1.5
+lpender:pushwoosh@2.1.5
 meteor@1.1.14
 modules@0.6.1
 modules-runtime@0.6.3
