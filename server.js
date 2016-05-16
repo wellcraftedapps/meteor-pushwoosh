@@ -18,12 +18,18 @@ Pushwoosh.createMessage = function(notifications) {
 
   var request = Npm.require('request');
 
+  console.log("lpender:pushwoosh : sending notifications")
+  console.log(notifications)
+
   // map devices onto notification
   notifications = notifications.map(function(notification) {
     var devices = [];
 
     // Find the users that match the included query
     var users = Meteor.users.find(notification.query).fetch();
+
+    console.log("lpender:pushwoosh : pushing to users");
+    console.log(users);
 
     users.forEach(function(user) {
       if (user.services.pushwoosh && typeof user.services.pushwoosh.deviceTokens == 'object') {
@@ -33,6 +39,9 @@ Pushwoosh.createMessage = function(notifications) {
         );
       }
     });
+
+    console.log("lpender:pushwoosh : pushing to devices")
+    console.log(devices)
 
     notification.devices = devices;
 
@@ -53,7 +62,10 @@ Pushwoosh.createMessage = function(notifications) {
     body: data,
     json: true,
     method: 'post'
-  }, function(err, res) {
-    //console.log(res);
+  }, function(error, response) {
+    if (err)
+      console.error("lpender:pushwoosh: " + error)
+    else
+      console.log("lpender:pushwoosh: " + response)
   });
 };
