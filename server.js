@@ -63,7 +63,7 @@ Pushwoosh.createMessage = function(notifications) {
     json: true,
     method: 'post'
   }, function(error, response) {
-    if (err)
+    if (error)
       console.error("lpender:pushwoosh: " + error)
     else
       console.log("lpender:pushwoosh: " + response)
