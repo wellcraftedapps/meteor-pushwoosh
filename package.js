@@ -1,7 +1,7 @@
 Package.describe({
   name: 'lpender:pushwoosh',
   summary: 'Send and receive push notifications via Pushwoosh',
-  version: '2.1.4',
+  version: '2.1.5',
   git: 'https://github.com/lpender/meteor-pushwoosh.git'
 });
 
