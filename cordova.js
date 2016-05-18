@@ -1,4 +1,9 @@
 (function (root) {
+  var DEVICE_TYPE = {
+    ios: 1,
+    android: 3
+  }
+
   Pushwoosh = {};
 
   Pushwoosh.initPushwoosh = function() {
@@ -26,7 +31,7 @@
 
     //register for pushes
     this.pushNotification.registerDevice(
-      function(token) { _this._register(token) },
+      function(token) { _this._register(token, DEVICE_TYPE['android']) },
       _this._registerFail
     );
   }
@@ -41,12 +46,12 @@
 
     //register for pushes
     this.pushNotification.registerDevice(
-      function(status) { _this._register(status['deviceToken'])},
+      function(status) { _this._register(status['deviceToken'], DEVICE_TYPE['ios'])},
       _this._registerFail
     );
   }
 
-  Pushwoosh._register = function(token) {
+  Pushwoosh._register = function(token, device_type) {
     var userId;
     console.log('push token: ' + token);
 

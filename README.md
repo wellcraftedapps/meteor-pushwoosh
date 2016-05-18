@@ -28,7 +28,6 @@ This package:
     }
   },
   "pushwoosh": {
-    "appId": "XXXXX-XXXXX",
     "token": "sample_pushwoosh_token"
   }
 }

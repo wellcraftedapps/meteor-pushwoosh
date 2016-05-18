@@ -15,6 +15,8 @@ Package.onUse(function(api) {
 });
 
 Package.onTest(function(api) {
+  api.use(['server.js', 'tinytest', 'test-helpers'], 'server')
+  api.addFiles(['server_spec.js'], 'server')
 
 });
 
@@ -24,5 +26,6 @@ Cordova.depends({
 });
 
 Npm.depends({
-  "request": "2.51.0"
+  "request": "2.51.0",
+  "pushwoosh-client": "1.2.1"
 });

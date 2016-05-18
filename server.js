@@ -10,64 +10,42 @@ Pushwoosh.initPushwoosh = function(appId) {
  *   message: "YAS"
  * });
  */
-Pushwoosh.createMessage = function(notifications) {
-  if(notifications instanceof Array) {
-  } else {
-    notifications = [notifications];
-  }
 
-  var request = Npm.require('request');
+function getUsers(data) {
+  // Find the users that match the included query
+  Meteor.users.find(data.query).fetch().filter(function(user) {
+    return user.services.pushwoosh && typeof user.services.pushwoosh.deviceTokens == 'object'
+  });
+}
 
-  console.log("lpender:pushwoosh : sending notifications")
-  console.log(notifications)
-
+function getDevicesFor(users) {
   // map devices onto notification
-  notifications = notifications.map(function(notification) {
-    var devices = [];
+  var devices = [];
 
-    // Find the users that match the included query
-    var users = Meteor.users.find(notification.query).fetch().filter(function(user) {
-      return user.services.pushwoosh && typeof user.services.pushwoosh.deviceTokens == 'object'
-    });
-
-    console.log("lpender:pushwoosh : pushing to users");
-    console.log(users);
-
-    users.forEach(function(user) {
-      Array.prototype.push.apply(
-        devices,
-        user.services.pushwoosh.deviceTokens
-      );
-    });
-
-    console.log("lpender:pushwoosh : pushing to devices")
-    console.log(devices)
-
-    notification.devices = devices;
-
-    return notification;
+  users.forEach(function(user) {
+    Array.prototype.push.apply(
+      devices,
+      user.services.pushwoosh.deviceTokens
+    );
   });
+}
 
-  var data = {
-    request: {
-      application: Meteor.settings.pushwoosh.appId,
-      auth: Meteor.settings.pushwoosh.token,
-      notifications: notifications
-    }
-  };
+Pushwoosh.createMessage = function(data) {
+  var Pushwoosh = NPM.require('pushwoosh-client');
+  var client = new Pushwoosh(Meteor.settings.public.pushwoosh.appId, Meteor.settings.pushwoosh.token);
 
-  // for each notification, do it up right
-  request({
-    uri: 'https://cp.pushwoosh.com/json/1.3/createMessage',
-    body: data,
-    json: true,
-    method: 'post'
-  }, function(error, response) {
-    if (error) {
-      console.log("lpender:pushwoosh:");
-      console.error(error);
-    } else {
-      console.log("lpender:pushwoosh: request completed successfully");
-    }
-  });
+  console.log("lpender:pushwoosh : createMessage received data")
+  console.log(data)
+
+  users = getUsers(data);
+
+  console.log("lpender:pushwoosh : pushing to users");
+  console.log(users);
+
+  devices = getDevicesFor(users);
+
+  console.log("lpender:pushwoosh : pushing to devices")
+  console.log(devices)
+
+  client.sendMessage(data.content, devices, data)
 };
