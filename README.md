@@ -15,7 +15,7 @@ This package:
 
 ## Usage
 
-### Add your Pushwoosh settings to settings file
+### Add your Pushwoosh settings to a `settings.json` file
 
 ```json
 {
@@ -34,6 +34,8 @@ This package:
 }
 ```
 
+And start your app using `meteor --settings settings.json`.
+
 You can request the "token" in the Pushwoosh admin panel.
 
 ### Add this to your `mobile-config.js` file
@@ -43,6 +45,7 @@ App.accessRule('*');
 ```
 
 You may also need to add the `cordova-whitelist` plugin.
+
 
 ### initPushwoosh
 
