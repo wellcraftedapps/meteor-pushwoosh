@@ -47,17 +47,10 @@
   }
 
   Pushwoosh._register = function(token) {
-    var userId;
-    console.log('push token: ' + token);
-
-    if (userId = Meteor.userId()) {
-      console.log("adding to userId: " + userId);
-      Meteor.users.update({ _id: userId }, {
-        $addToSet: { 'services.pushwoosh.deviceTokens': token }
-      });
-    }
-
-    Session.set('pushwoosh_device_token', token);
+    console.log('calling registertoken')
+    Tracker.autorun(function() {
+      Meteor.call('registerToken', token, Meteor.userId())
+    });
   };
 
   Pushwoosh._registerFail = function(status) {
