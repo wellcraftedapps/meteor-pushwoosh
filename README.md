@@ -55,52 +55,18 @@ In a file that is run in mobile/cordova contexts, run the following code:
 ### Send a push notification:
 
     if (Meteor.isServer) {
-
       Pushwoosh.createMessage({
         "query": { _id: Meteor.userId() },
         "send_date": "now",
         "ignore_user_timezone": true,
         "content": "Your message"
       });
-
     }
 
 You can pass this method an array of objects, if you'd like to send more than
 one message.
 
 [createMessage API](https://www.pushwoosh.com/programming-push-notification/pushwoosh-push-notification-remote-api/).
-
-### Receive a push notification
-
-In order to message specific users via their devices, you have to associate
-`pushwoosh_device_token`s with each of your users.
-
-This value is stored in a `Session` variable if users are not logged in.
-
-To associate users with their device tokens upon login:
-
-    Accounts.onLogin(function(succ) {
-      var token;
-      if (Meteor.isClient) {
-        if (token = Session.get('pushwoosh_device_token')) {
-          Meteor.users.update({ _id: succ.user._id },
-            {
-              $addToSet: {
-                'services.pushwoosh.deviceTokens': token
-              }
-            }
-          );
-        }
-      }
-    });
-
-    Meteor.users.allow({
-      update: function(userId, doc) {
-        return (
-          userId === doc._id
-        )
-      }
-    });
 
 ## Handling notifications in-app
 
