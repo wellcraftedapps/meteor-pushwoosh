@@ -1,7 +1,7 @@
 Package.describe({
   name: 'lpender:pushwoosh',
   summary: 'Send and receive push notifications via Pushwoosh',
-  version: '2.1.8',
+  version: '2.2.0',
   git: 'https://github.com/lpender/meteor-pushwoosh.git'
 });
 
@@ -20,7 +20,7 @@ Package.onTest(function(api) {
 });
 
 Cordova.depends({
-  'pushwoosh-cordova-plugin': '5.0.3',
+  'pushwoosh-cordova-plugin': '6.4.0',
   'cordova-plugin-device': '1.1.3'
 });
 
