@@ -21,7 +21,7 @@ Package.onTest(function(api) {
 
 Cordova.depends({
   'pushwoosh-cordova-plugin': '5.0.3',
-  'cordova-plugin-device': '1.1.1'
+  'cordova-plugin-device': '1.1.3'
 });
 
 Npm.depends({
