@@ -5,20 +5,7 @@
     this.pushNotification =
       cordova.require("pushwoosh-cordova-plugin.PushNotification");
 
-    if (device.platform === "Android") {
-      this._initAndroid();
-    } else if (device.platform === "iOS") {
-      this._initIOs();
-    }
-
-    //reset badges on app start
-    this.pushNotification.setApplicationIconBadgeNumber(0);
-  }
-
-  // This will trigger all pending push notifications on start.
-  Pushwoosh._initAndroid = function() {
-    var _this = this;
-
+    //set config
     this.pushNotification.onDeviceReady({
       projectid: Meteor.settings.public.pushwoosh.google.project_number,
       pw_appid : Meteor.settings.public.pushwoosh.appId
@@ -26,24 +13,12 @@
 
     //register for pushes
     this.pushNotification.registerDevice(
-      function(token) { _this._register(token) },
+      function(status) { _this._register(status.pushToken) },
       _this._registerFail
     );
-  }
 
-  // This will trigger all pending push notifications on start.
-  Pushwoosh._initIOs = function() {
-    var _this = this;
-
-    this.pushNotification.onDeviceReady({
-      pw_appid: Meteor.settings.public.pushwoosh.appId
-    });
-
-    //register for pushes
-    this.pushNotification.registerDevice(
-      function(status) { _this._register(status['deviceToken'])},
-      _this._registerFail
-    );
+    //reset badges on app start
+    this.pushNotification.setApplicationIconBadgeNumber(0);
   }
 
   Pushwoosh._register = function(token) {
