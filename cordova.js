@@ -26,7 +26,7 @@
 
     //register for pushes
     this.pushNotification.registerDevice(
-      function(token) { _this._register(token) },
+      function(status) { _this._register(status.pushToken) },
       _this._registerFail
     );
   }
@@ -41,7 +41,7 @@
 
     //register for pushes
     this.pushNotification.registerDevice(
-      function(status) { _this._register(status['deviceToken'])},
+      function(status) { _this._register(status.pushToken)},
       _this._registerFail
     );
   }
