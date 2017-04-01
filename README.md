@@ -1,4 +1,4 @@
-#Pushwoosh package for Meteor
+# Pushwoosh Atmosphere Package for Meteor
 
 Pushwoosh is a service that makes it easy to send push notifications to your (mobile) app.
 
