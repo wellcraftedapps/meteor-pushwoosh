@@ -20,8 +20,8 @@ Package.onTest(function(api) {
 });
 
 Cordova.depends({
-  'pushwoosh-cordova-plugin': '6.4.0',
-  'cordova-plugin-device': '1.1.3'
+  'pushwoosh-cordova-plugin': '6.5.0',
+  'cordova-plugin-device': '2.1.3'
 });
 
 Npm.depends({
