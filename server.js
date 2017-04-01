@@ -50,7 +50,7 @@ Pushwoosh.createMessage = function(notifications) {
 
   var data = {
     request: {
-      application: Meteor.settings.pushwoosh.appId,
+      application: Meteor.settings.public.pushwoosh.appId,
       auth: Meteor.settings.pushwoosh.token,
       notifications: notifications
     }
