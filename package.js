@@ -1,12 +1,12 @@
 Package.describe({
-  name: 'lpender:pushwoosh',
-  summary: 'Send and receive push notifications via Pushwoosh',
-  version: '2.5.0',
-  git: 'https://github.com/lpender/meteor-pushwoosh.git'
+  name: 'wellcrafted:pushwoosh',
+  summary: 'Send and receive push notifications via Pushwoosh (forked from lpender:pushwoosh)',
+  version: '3.0.0',
+  git: 'https://github.com/wellcraftedapps/meteor-pushwoosh.git'
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0.2.1');
+  api.versionsFrom('1.6.1.1');
   api.addFiles('cordova.js', 'web.cordova');
   api.addFiles('browser.js', 'web.browser');
   api.addFiles('server.js', 'server');
@@ -20,10 +20,10 @@ Package.onTest(function(api) {
 });
 
 Cordova.depends({
-  'pushwoosh-cordova-plugin': '6.5.0',
-  'cordova-plugin-device': '2.1.3'
+  'pushwoosh-cordova-plugin': '7.5.0',
+  'cordova-plugin-device': '1.1.6'
 });
 
 Npm.depends({
-  "request": "2.51.0"
+  "request": "2.85.0"
 });
