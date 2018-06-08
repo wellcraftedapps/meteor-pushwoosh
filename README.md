@@ -1,4 +1,5 @@
 # Pushwoosh Atmosphere Package for Meteor
+(forked from lpender:pushwoosh)
 
 Pushwoosh is a service that makes it easy to send push notifications to your (mobile) app.
 
@@ -11,7 +12,7 @@ This package:
 
 ## Install
 
-> meteor add lpender:pushwoosh
+> meteor add wellcraftedapps:pushwoosh
 
 ## Usage
 
