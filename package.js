@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'wellcrafted:pushwoosh',
+  name: 'wellcraftedapps:pushwoosh',
   summary: 'Send and receive push notifications via Pushwoosh (forked from lpender:pushwoosh)',
   version: '3.0.0',
   git: 'https://github.com/wellcraftedapps/meteor-pushwoosh.git'
